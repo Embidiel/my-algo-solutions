@@ -27,6 +27,8 @@ I spread the values using rest operator.
 
 ---
 
+***Code***
+
     var kidsWithCandies = function(candies, extraCandies) {
         const maxvalue = Math.max(...candies);
     
@@ -39,4 +41,42 @@ I spread the values using rest operator.
         });
         
         return kids;
+    };
+
+## 1480. Running Sum of 1d Array
+
+https://leetcode.com/problems/running-sum-of-1d-array
+
+### Breakdown:
+---
+Gusto natin mangyari dito is ***ma-replace yung current element sa current value na looped sa array***. ***Yung replacement is yung current value tapos added yung current sum.***
+
+***Example:***
+
+    1 = 1 + 0;
+    2 =  2 + 1;
+    3 = 3 + 3;
+    4 = 4 + 6
+
+***Result*** = `[1,3,6,10]`
+
+
+      for (let i = 0; i < maxlength; i++){
+            const num = nums[i]
+            nums[i] = num + currentSum;
+            currentSum = currentSum + num;
+        }
+
+
+***Code***
+
+    var runningSum = function(nums) {
+        let currentSum = 0;
+        const maxlength = nums.length;
+        for (let i = 0; i < maxlength; i++){
+            const num = nums[i]
+            nums[i] = num + currentSum;
+            currentSum = currentSum + num;
+        }
+        return nums;
     };
