@@ -101,8 +101,6 @@ Get all elements of the array starting from the last element up to -n.
 Example : `[1,2,3,4,4,3,2,1]`. Where `-n is -4`
 Result is `[4,3,2,1]`
 
-Note: A `negative integer` given sa `splice` function indicates that you are ***starting from the last item of an array.***
-
     const ys = nums.splice(-n)
 
 ---
@@ -132,3 +130,73 @@ Push all elements from xs and ys starting from its first elements.
         }
         return res;
     };
+
+## 1512. Number of Good Pairs
+
+https://leetcode.com/problems/number-of-good-pairs/
+
+### Breakdown
+---
+Una binilang ko muna kung ilang beses lumitaw yung isang number tapos sa array tapos ini-store ko sa isang Hash Map.
+
+***Example*** : `[1,2,3,1,1,3]`;
+***Result ng Hash Map***
+
+    {
+    	1: 3,
+    	2: 1,
+    	3: 2
+    }
+
+---
+
+
+    const frequency = nums.reduce((acc, num) => {
+            if(!acc[num]) acc[num] = 1;
+            else acc[num]++;
+            
+            return acc;
+        }, {});
+
+
+---
+
+Sa second loop ang ginawa ko is bawat number na naging key na sa Hash Map ay dinaan ko tapos kinuha ko yung value nung key na yun.
+
+       for(const key of keys){
+            const n = frequency[key];
+            const res =  n * (n - 1) / 2;
+            pairs += res;
+        }
+
+---
+Noticed that I used this formula `n * (n - 1) / 2`.
+Explanation photo below:
+
+![enter image description here](https://imgur.com/tC9V9md.png)
+
+
+
+---
+***Code***
+
+    var numIdenticalPairs = function(nums) {
+        let pairs = 0;
+        const frequency = nums.reduce((acc, num) => {
+            if(!acc[num]) acc[num] = 1;
+            else acc[num]++;
+            
+            return acc;
+        }, {});
+        
+        
+        const keys = Object.keys(frequency);
+    
+        for(const key of keys){
+            const n = frequency[key];
+            const res =  n * (n - 1) / 2;
+            pairs += res;
+        }
+        
+        return pairs;
+    }
