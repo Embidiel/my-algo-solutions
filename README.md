@@ -200,3 +200,62 @@ Explanation photo below:
         
         return pairs;
     }
+
+## 1365. How Many Numbers Are Smaller Than the Current Number
+
+https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/
+
+### Breakdown
+---
+I built a nested for loop to traverse the elements multiple times and compare kung mas malaki ba yung current number to the next numbers
+and then may counter ako kung ilan yung number na mas maliit sa kanya sa list.
+
+Pag natapos yung isang pass sa array, add lang yung laman ng count
+sa array tapos sunod ulit na pass.
+
+
+***Example :***
+
+    [8,1,2,2,3]
+
+    8 > 2 , 8 > 1, .......
+    1 > 8 , 1 > 1, ......
+
+---
+
+    for(let x = 0; x < nums.length ; x++){
+        let current = nums[x];
+        let count = 0;
+        
+        for(let y = 0; y < nums.length; y++){
+            if(current > nums[y]){
+                count++;
+            }
+        }
+        
+        res.push(count);
+        count = 0;
+    }
+
+---
+
+
+***Code:***
+
+    var smallerNumbersThanCurrent = function(nums) {
+    let res = [];
+    for(let x = 0; x < nums.length ; x++){
+        let current = nums[x];
+        let count = 0;
+        
+        for(let y = 0; y < nums.length; y++){
+            if(current > nums[y]){
+                count++;
+            }
+        }
+        
+        res.push(count);
+        count = 0;
+    }
+	    return res;
+    };
