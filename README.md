@@ -331,11 +331,10 @@ https://leetcode.com/problems/missing-number/
 
 ---
 
-First loop, gumawa muna ako ng Hash map para ma store yung values na present sa array for easy access sa Second loop.
+First loop, gumawa muna ako ng ***Hash map para ma store yung values na present sa array for easy access sa Second loop.***
 
-Sa Second loop, nag loop ako sa number 0 up to n. If yung present 
-na number or x is wala sa reference Hash Map ibig sabihin
-siya yung kulang na value sa sequence.
+Sa Second loop, nag loop ako sa number 0 up to n. 
+***If yung present na number or x is wala sa reference Hash Map ibig sabihinsiya yung kulang na value sa sequence.***
 
 ---
 
@@ -349,5 +348,55 @@ siya yung kulang na value sa sequence.
     
         for(let x = 0; x <= nums.length ; x++){
             if(!nummap[x]) return x;
+        }
+    };
+
+
+## 1. Two Sum
+
+https://leetcode.com/problems/two-sum/
+
+### Breakdown
+
+---
+
+Sa first loop ang ginawa ko dito is gumawa ako ng Hash Map para ma-store yung number and then yung partner niya na index in a key-value pair.
+
+      const visitedmap = nums.reduce((acc, num, index) => {
+                acc[num] = index
+                return acc;
+            }, {});
+
+---
+
+Sa second loop dinaanan ko ulit yung nums na array this time k***inukuha ko yung difference nung target number tsaka yung current number sa loob ng loop.***
+
+The reason is ***gusto ko makuha yung complement number or partner number for addition sa target number.***
+
+***If present yung complement / diff number sa loob ng Hash Map na ginawa natin previously at hindi siya equal sa sarili niya*** ( Goal natin dito is two different numbers) and then ayun na yung indices na need natin ma-return.
+
+        for(let x = 0; x < nums.length ; x++){
+            const diff = target - nums[x];
+            if(visitedmap[diff] && visitedmap[diff] !== x){
+                return [x, visitedmap[diff]];
+            }
+        }
+
+
+---
+***Code***
+
+    var twoSum = function(nums, target) {
+        const visitedmap = nums.reduce((acc, num, index) => {
+            acc[num] = index
+            return acc;
+        }, {});
+    
+        
+        for(let x = 0; x < nums.length ; x++){
+            const diff = target - nums[x];
+            if(visitedmap[diff] && visitedmap[diff] !== x){
+                return [x, visitedmap[diff]];
+            }
         }
     };
