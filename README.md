@@ -400,3 +400,106 @@ The reason is ***gusto ko makuha yung complement number or partner number for ad
             }
         }
     };
+
+## ?. Three Sum
+
+### Breakdown
+
+----
+We're sorting the array ***pa ascending order / least to greatest .***
+
+
+    nums = nums.sort();
+
+
+---
+
+***At max gusto natin matapos yung pag loop sa array bago mawalan ng tig 3 items***. 
+
+We minus 2 kasi the first one is kailangan sa left pointer and yung another one is needed sa second pointer sa kanan.
+
+     let endloop = nums.length - 2;
+
+---
+
+From the first element gusto natin magsimula yung left pointer or yung second item sa kasunod na element nung current number sa loop.
+
+For example : `[1,2,3,4,5]`
+
+Gusto natin magsimula yung left pointer sa 2.
+
+For the right pointer naman gusto natin magsimula sa pinaka-dulong item which is 5.
+
+     let left = x + 1;
+     let right = nums.length - 1;
+
+---
+***Habang hindi pa nagcro-cross yung paths ng dalawang pointer continue lang yung loop, otherwise break na yung loop*** kasi nagamit na or nadaanan na lahat ng items sa loob ng array.
+
+
+    while(left < right)
+
+---
+
+Dito naman ***kinukuha natin yung sum nung  current number, left pointer at right pointer.***
+
+Tapos ***kung yung sum is less than 0 ililipat natin yung left pointer pa-kanan kasi kung mas maliit yung sum sa 0 there's a possibility na makuha natin yung 0 pag nagincrease tayo ng value (sorted kasi yung array na to)***
+
+Pag ***yung sum naman is greater than 0 ibig sabihin naman nito masyadong malayo sa range nung target value natin yung sum kaya 
+kailangan i-move natin yung right pointer pa-left para lumiit naman yung sum.***
+
+If yung ***sum naman is equal sa 0 and then nakakuha na tayo ng triplet at need natin to mapasok sa result array.***
+
+     const sum = nums[x] + nums[left] + nums[right];
+                 
+      if (sum < 0){
+           left++;
+      } else if (sum > 0){
+           right--;
+      } else if(sum === 0){
+           result.push([nums[x] , nums[left] , nums[right]]);
+           left++;
+           right--;
+     }
+
+---
+***Code***
+
+
+    var threeSum = function(nums) {
+        
+        if(nums.length < 3){
+            return [];
+        }
+        
+        nums = nums.sort();
+               
+        let result = [];
+        let endloop = nums.length - 2;
+        
+        for(let x = 0; x < endloop; x++){
+       
+            let left = x + 1;
+            let right = nums.length - 1;
+            
+            while(left < right){
+              
+                const sum = nums[x] + nums[left] + nums[right];
+             
+                if (sum < 0){
+                    left++;
+                } else if (sum > 0){
+                    right--;
+                }   else if(sum === 0){
+                   result.push([nums[x] , nums[left] , nums[right]]);
+                   left++;
+                   right--;
+                }
+            }
+        }
+        
+        
+        return [...new Set(result.map(x => JSON.stringify(x)))].map(JSON.parse);
+    };
+
+
