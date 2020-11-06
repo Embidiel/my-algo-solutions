@@ -605,3 +605,87 @@ Pagkalabas nung unique element binalik ko ulit sa pagiging string.
         return String.fromCharCode(res)
     };
 
+
+## Smallest Difference
+
+***Problem***
+
+Given two arrays of equal length gusto natin mahanap yung pair of numbers na galing sa array 1 at array 2 na may smallest difference or malapit sa isa't isa.
+
+***Example:***
+
+Array 1: `[1,10,23,5,44]`
+Array 2 : `[5,2,91,3,4]`
+
+The answer would be `[1,2]` kasi ang difference lang nila ay `1`
+
+Now how can we solve it in an efficient way?
+
+### Breakdown
+
+---
+
+The first step is ***i-sort muna yung dalawang arrays pa ascending order.***
+
+    arr1 = arr1.sort((a,b) => a - b);
+    arr2 = arr2.sort((a,b) => a - b);
+
+By sorting yung dalawang arrays mas makakapag-compare tayo ng values kung mas malaki ba yung number sa array 1 kumpara sa array 2 or mas maliit ba resulting to a least difference.
+
+
+---
+
+Need natin mag declare ng dalawang pointers.
+Yung first pointer pang traverse sa items sa Array 1 at yung second pointer
+pang traverse sa Array 2 items.
+
+resultset variable is diyan mai-store yung pairs na may least difference.
+
+    let pointerx = 0;
+    let pointery = 0;
+    let resultset = [];
+    let smallest = null;
+    let difference = null;
+
+
+---
+
+Dito naman gusto ko mag loop sa Array  at Array 2 using two pointers.
+Hindi mag ii-stop yung loop hanggat hindi ko nadadaanan yung lahat ng items sa both arrays.
+
+Sa loob ng loop merong comparison kung mas maliit ba yung rightnumber sa leftnumber.
+
+Kung mas maliit gusto ko i-move yung pointer x pa kanan. Bakit? 
+Kasi sorted nga yung array natin gusto ko magkaroon ng larger value to minimize the gap between the two numbers.
+
+Kung mas malaki yung leftnumber, gusto ko naman ma-move yung pointer sa second array. Same thing to minimize the gap.
+
+Third if statement sinasabi diyan kung mas maliit yung nakuhang difference
+between leftnumber and rightnumber gusto ko i-assign yung values na yan as
+the smallest number na current or parang title holder haha.
+
+If nadaanan na lahat return nalang yung resultset.
+
+        while(pointerx !== array1.length - 1 && pointery !== array2.length - 1){
+        	const leftnumber = array1[pointerx];
+        	const rightnumber = array2[pointery];
+           
+           if(leftnumber < rightnumber){
+            diff = rightnumber - leftnumber;
+            pointerx++;
+          } else if (leftnumber > rightnumber) {
+              diff = leftnumber - rightnumber;
+        	  pointery++;
+          } else {
+             return [leftnumber, rightnumber];
+        }
+        
+          if(diff < smallest){
+        	smallest = diff;
+        	resultset = [leftnumber, rightnumber];
+         }
+        }
+        
+    return resultset;
+
+
