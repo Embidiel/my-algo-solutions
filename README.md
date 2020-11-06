@@ -579,3 +579,29 @@ point naman na mag continue pa kasi di rin maka form ng 3 odds talaga.
         return false;
     };
 
+
+## 389. Find the Difference
+
+https://leetcode.com/problems/find-the-difference/
+
+
+### Breakdown
+
+---
+
+First step pinagsama ko muna yung contents nung dalawang string.
+Pagka spread ko naging individual elements or characters na sila papasok sa new array.
+
+Tapos nag map ako every char is ginawa kong charcode or ASCII para maging integer equivalent.
+
+Next step is to reduce every ascii integer or char code nag perform ako ng Bit XOR operator para ma filter out kung ano ba yung unique using bit comparison.
+
+Pagkalabas nung unique element binalik ko ulit sa pagiging string.
+
+    var findTheDifference = function(s, t) {
+    
+       let res = [...s, ...t].map(letter => letter.charCodeAt(0)).reduce((acc, num) => acc ^ num, 0);
+        
+        return String.fromCharCode(res)
+    };
+
