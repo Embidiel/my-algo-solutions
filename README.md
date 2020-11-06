@@ -503,3 +503,79 @@ If yung ***sum naman is equal sa 0 and then nakakuha na tayo ng triplet at need 
     };
 
 
+## 1550. Three Consecutive Odds
+
+https://leetcode.com/problems/three-consecutive-odds/
+
+#### Breakdown
+
+---
+
+ Di naman tayo makakapag - solve ng problem if less than 3 lang yung
+ laman ng array natin haha.
+
+    if(arr.length < 3){
+            return false;
+        }
+
+
+---
+Gusto lang natin mag loop up to minus 2 kasi yung 2 is occupied by 2 pointers.
+
+       for(let x = 0 ; x < arr.length - 2; x++){
+
+
+---
+
+If the first number is not odd there's no point na mag continue pa sa 
+pag loop kasi di rin tayo makaka form ng 3 consecutive ng odds kung yung unang item palang di na odd.
+
+Else naman nag set ako ng 2 pointers. The first pointer is pointing sa item na kasunod nung current item or yung x tapos yung right pointer naman yung kasunod lang na item nung left pointer.
+
+If kahit isa sa dalawang pointer na yan hindi odd yung mga laman edi no 
+point naman na mag continue pa kasi di rin maka form ng 3 odds talaga.
+
+
+     if(!isOdd(arr[x])){
+           continue;
+    } else {
+           const lp = x + 1;
+           const rp = lp + 1;
+                    
+           if(!isOdd(arr[lp]) || !isOdd(arr[rp])){
+                 continue;
+            } else {
+                 return true;
+                    }
+     }
+
+---
+
+***Code***
+
+    const isOdd = (number) => number % 2 !== 0;
+    
+    var threeConsecutiveOdds = function(arr) {
+        if(arr.length < 3){
+            return false;
+        }
+    
+        
+        for(let x = 0 ; x < arr.length - 2; x++){
+            if(!isOdd(arr[x])){
+                continue;
+            } else {
+                const lp = x + 1;
+                const rp = lp + 1;
+                
+                if(!isOdd(arr[lp]) || !isOdd(arr[rp])){
+                    continue;
+                } else {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    };
+
