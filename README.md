@@ -689,3 +689,99 @@ If nadaanan na lahat return nalang yung resultset.
     return resultset;
 
 
+## Caesar Cipher
+
+### Breakdown
+
+---
+
+First step brineakdown ko muna yung string into individual letters or chars.
+Second, possible kasi na mag input yung user ng large value for the skip or rotation.
+
+***Kung ganito mangyayari pwedeng mag-exceed yung skip sa limit ng ASCII Keycode Alphabet*** so ang ginawa ko is ***nag mod ako gamit 26 (number of letters sa alphabet).***
+
+Para repeatedly magminus ng 26 hanggang makuha yung remainder. Yung remainder bale yung magiging new key.
+
+Tapos nag loop ako every letter and then tinawag ko yung `getNewLetter` na function.
+
+
+    const  caesarCipher = (string, rotation) => {
+	    const  ltrs = [...string];
+	    const  newkey = rotation % 26;
+	    
+	    let  res = [];
+	      
+	    for(const  letter  of  ltrs){
+		    res.push(getNewLetter(letter, newkey))
+	    }
+	       
+	    return  res.join('');
+    };
+
+---
+
+***Sa function naman na to ginawa ko is kinuha ko yung ASCII keycode nung letter plus yung skip / rotation na specified.***
+
+If mas mababa sa ASCII Alphabet Keycode limit na 122 or equal edi pasok at kailangan nalang i-return yung new letter.
+
+Pero ***kung mas malaki sa limit need natin i-add yung starting point ng ASCII code alphabet - 1 which is 64 added by new letter code tapos mod 122.***
+
+Kasi ***paano kung z yung letter edi keycode niya is 122 tapos yung key natin is 21. Edi 143 na yung new letter code which nag exceed na sa limit na 122.***
+
+***So need natin ulit mag mod (newlettercode mod endascii) tapos add startascii
+kasi need natin magstart sa ASCII Alphabet keycodes.***
+
+
+
+
+    const  getNewLetter = (letter, key) => {
+	    const  newlettercode = letter.charCodeAt() + key;
+	    const  startascii = 64; 
+	    const  endascii = 122;
+	    
+	    if(newlettercode <= endascii ){
+		    return  String.fromCharCode(newlettercode);
+	    } else {
+		    return  String.fromCharCode(startascii + newlettercode % endascii)
+	    }
+    }
+
+
+
+---
+
+
+
+***Code***
+
+    const  getNewLetter = (letter, key) => {
+	    const  newlettercode = letter.charCodeAt() + key;
+	    const  startascii = 64; 
+	    const  endascii = 122;
+	    
+	    if(newlettercode <= endascii ){
+		    return  String.fromCharCode(newlettercode);
+	    } else {
+		    return  String.fromCharCode(startascii + newlettercode % endascii)
+	    }
+    }
+         
+    
+    const  caesarCipher = (string, rotation) => {
+	    const  ltrs = [...string];
+	    const  newkey = rotation % 26;
+	    
+	    let  res = [];
+	      
+	    for(const  letter  of  ltrs){
+		    res.push(getNewLetter(letter, newkey))
+	    }
+	       
+	    return  res.join('');
+    };
+    
+      
+    
+    console.log(caesarCipher("zbC", 27));
+
+
