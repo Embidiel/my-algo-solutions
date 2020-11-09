@@ -785,3 +785,96 @@ kasi need natin magstart sa ASCII Alphabet keycodes.***
     console.log(caesarCipher("zbC", 27));
 
 
+## 977. Squares of a Sorted Array
+
+https://leetcode.com/problems/squares-of-a-sorted-array/
+
+### Breakdown
+
+---
+
+Dito nag declare ako ng dalawang pointer for the start of the array and then sa pinakadulo ng array.
+
+      let lp = 0;
+      let rp = A.length - 1;
+
+---
+
+Right from the bat gusto natin i-compare yung magkabilang dulo ng array natin.
+Kaya nilagay ko na agad yung dalawang numbers sa two variables.
+
+     let x = A[lp] * A[lp];
+     let y = A[rp] * A[rp];
+
+
+---
+
+So habang hindi pa nagkakasalubong yung dalawang pointers sa gitna gusto natin
+i-compare yung values ng x at y. If mas malaki yung x or nasa left value gusto natin
+ipush yung x at imove yung left pointer pa-kanan otherwise vice-versa naman.
+
+        while(lp <= rp){
+            if(x > y){
+                res.push(x);
+                lp++;
+                x = A[lp] * A[lp];
+            } else {
+                res.push(y);
+                rp--;
+                y = A[rp] * A[rp];
+            }
+        }
+
+---
+
+***Example simulation:***
+
+	// [-4,-1,0,3,10]
+	
+    // Step 1
+    16 < 100 ? [100]
+    // Step 2
+    16 < 9 ? [100,16]
+    // Step 3
+    1 < 9 ? [100,16,9]
+    // Step 4
+    1 < 0 [100,16,9,1]
+    // Step 5
+    0 < 0 [100,16,9,1]
+    // Step 6
+    Break na yung loop kasi nagtagpo na yung dalawang pointers or nag-equal na sila.
+
+---
+
+Since gusto natin na ascending order yung array we want to reverse the array.
+
+    return res.reverse();
+
+***Code***
+
+    /**
+     * @param {number[]} A
+     * @return {number[]}
+     */
+    var sortedSquares = function(A) {
+        let lp = 0;
+        let rp = A.length - 1;
+        
+        let res = [];
+        let x = A[lp] * A[lp];
+        let y = A[rp] * A[rp];
+        
+        while(lp <= rp){
+            if(x > y){
+                res.push(x);
+                lp++;
+                x = A[lp] * A[lp];
+            } else {
+                res.push(y);
+                rp--;
+                y = A[rp] * A[rp];
+            }
+        }
+        return res.reverse();
+    };
+
